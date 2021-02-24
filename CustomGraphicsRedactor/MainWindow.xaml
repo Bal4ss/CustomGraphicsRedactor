@@ -1,0 +1,32 @@
+﻿<Window x:Class="CustomGraphicsRedactor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CustomGraphicsRedactor"
+        xmlns:ucon="clr-namespace:CustomGraphicsRedactor.User_Controls"
+        mc:Ignorable="d"
+        KeyDown="WindowKeyDown"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+        <ucon:ToolBarControl x:Name="ToolBarWrapper"
+                             Grid.Row="0"
+                             Grid.Column="0"/>
+        <ucon:CanvasControl x:Name="MainCanvasWrapper"
+                            Grid.Column="0"
+                            Grid.Row="1"
+                            BorderThickness="2"
+                            BorderBrush="Black"/>
+        <ucon:PropertiesPanelControl x:Name="PropertiesPanelWrapper"
+                                     Grid.Column="1"
+                                     Grid.Row="1"/>
+    </Grid>
+</Window>

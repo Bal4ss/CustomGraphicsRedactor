@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="CustomGraphicsRedactor.User_Controls.ToolBarControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CustomGraphicsRedactor.User_Controls"
+             xmlns:tml="clr-namespace:CustomGraphicsRedactor.User_Controls.Template"
+             mc:Ignorable="d">
+    <Grid>
+        <StackPanel Orientation="Horizontal">
+            <tml:ChangeModeToolButton x:Name="HandToolButton"
+                                      Content="Hand"
+                                      Mode="Hand"
+                                      Click="ToolButtonEvent"/>
+            <tml:ChangeModeToolButton x:Name="BrokenLineToolButton"
+                                      Content="Broken Line"
+                                      Mode="BrokenLine"
+                                      Click="ToolButtonEvent"/>
+            <tml:ChangeModeToolButton x:Name="RectangleToolButton"
+                                      Content="Rectangle"
+                                      Mode="Rectangle"
+                                      Click="ToolButtonEvent"/>
+            <Button x:Name="DeleteButton"
+                    Content="Remove"
+                    Click="DeleteButtonEvent"/>
+            <local:SaveLoadControl x:Name="SabeLoadWrapper"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
