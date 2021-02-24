@@ -117,7 +117,7 @@ namespace CustomGraphicsRedactor.User_Controls
             if (CurrentSettings.Mode != ECanvasMode.Hand) return;
             _isMove = true;
             IsSelectedItems.ForEach(c => c.Move(vector));
-            CurrentSettings.MoveDelegate.Invoke();
+            CurrentSettings.MoveDelegate?.Invoke();
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace CustomGraphicsRedactor.User_Controls
         {
             _items.Add(newObject);
             MainCanvas.Children.Add((UIElement)newObject);
-            CurrentSettings.MoveDelegate.Invoke();
+            CurrentSettings.MoveDelegate?.Invoke();
         }
 
         /// <summary>

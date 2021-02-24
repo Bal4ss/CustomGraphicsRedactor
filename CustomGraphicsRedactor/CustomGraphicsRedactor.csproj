@@ -72,10 +72,10 @@
     <Compile Include="Moduls\PointsModul\CustVector.cs" />
     <Compile Include="Moduls\Enums\ECancelTypes.cs" />
     <Compile Include="Moduls\Enums\ESaveLoadStatus.cs" />
-    <Compile Include="Moduls\Interface\ICanvasItem.cs" />
-    <Compile Include="Moduls\Interface\IPropertiesItem.cs" />
-    <Compile Include="Moduls\Interface\IRectangleItem.cs" />
-    <Compile Include="Moduls\Interface\IRefreshControls.cs" />
+    <Compile Include="Moduls\Interfaces\ICanvasItem.cs" />
+    <Compile Include="Moduls\Interfaces\IPropertiesItem.cs" />
+    <Compile Include="Moduls\Interfaces\IRectangleItem.cs" />
+    <Compile Include="Moduls\Interfaces\IRefreshControls.cs" />
     <Compile Include="Moduls\SaveLoadExportModul\SaveLoadImplement.cs" />
     <Compile Include="Moduls\SaveLoadExportModul\XmlParser.cs" />
     <Compile Include="User Controls\CanvasControl.xaml.cs">

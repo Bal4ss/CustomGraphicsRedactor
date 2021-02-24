@@ -87,6 +87,8 @@ namespace CustomGraphicsRedactor.Moduls
                 xmlParser.DeserializeXml(XDocument.Load(openFileDialog.FileName))
                     .ForEach(c => _ctx.Children.Add(c));
             }
+
+            CurrentSettings.MoveDelegate?.Invoke();
         }
 
         /// <summary>

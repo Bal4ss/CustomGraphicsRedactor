@@ -156,7 +156,7 @@ namespace CustomGraphicsRedactor.User_Controls
                 });
 
             ((IRectangleItem)_item).ChangeWidth(_numberWidthBox.ValueNumber);
-            CurrentSettings.MoveDelegate.Invoke();
+            CurrentSettings.MoveDelegate?.Invoke();
         }
 
         /// <summary>
@@ -171,7 +171,7 @@ namespace CustomGraphicsRedactor.User_Controls
                 });
 
             ((IRectangleItem)_item).ChangeHeight(_numberHeightBox.ValueNumber);
-            CurrentSettings.MoveDelegate.Invoke();
+            CurrentSettings.MoveDelegate?.Invoke();
         }
 
         /// <summary>

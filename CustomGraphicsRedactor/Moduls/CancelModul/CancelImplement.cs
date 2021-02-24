@@ -46,15 +46,15 @@ namespace CustomGraphicsRedactor.Moduls
                     break;
                 case ECancelTypes.Move:
                     CancelMove((ICanvasItem)tmp[0], (List<CustPoint>)tmp[1]);
-                    CurrentSettings.MoveDelegate.Invoke();
+                    CurrentSettings.MoveDelegate?.Invoke();
                     break;
                 case ECancelTypes.Width:
                     CancelWidth((IRectangleItem)tmp[0], (double)tmp[1]);
-                    CurrentSettings.MoveDelegate.Invoke();
+                    CurrentSettings.MoveDelegate?.Invoke();
                     break;
                 case ECancelTypes.Height:
                     CancelHeight((IRectangleItem)tmp[0], (double)tmp[1]);
-                    CurrentSettings.MoveDelegate.Invoke();
+                    CurrentSettings.MoveDelegate?.Invoke();
                     break;
                 case ECancelTypes.FillColor:
                     CancelFillColor((IPropertiesItem)tmp[0], (Brush)tmp[1]);
