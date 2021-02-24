@@ -57,8 +57,8 @@ namespace CustomGraphicsRedactor.Moduls
             AppendNewAction(ECancelTypes.Remove, _currentItem);
             ((ICanvasItem)_currentItem).Remove();
             _currentItem = null;
-            _refresh.Invoke();
-            _move.Invoke();
+            _refresh?.Invoke();
+            _move?.Invoke();
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace CustomGraphicsRedactor.Moduls
         public static void Cancel()
         {
             _cancelImplement.Cancel();
-            _refresh.Invoke();
+            _refresh?.Invoke();
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace CustomGraphicsRedactor.Moduls
             if (currentItem == null && _currentItem != null)
                 ((ICanvasItem)_currentItem).Deselect();
             _currentItem = currentItem;
-            _refresh.Invoke();
+            _refresh?.Invoke();
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace CustomGraphicsRedactor.Moduls
         public static void ChangeMode(ECanvasMode currentMode = ECanvasMode.Hand)
         {
             _currentMode = currentMode;
-            _refresh.Invoke();
+            _refresh?.Invoke();
         }
     }
 }

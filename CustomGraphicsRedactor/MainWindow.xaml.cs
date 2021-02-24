@@ -21,5 +21,11 @@ namespace CustomGraphicsRedactor
             if (e.KeyboardDevice.Modifiers == System.Windows.Input.ModifierKeys.Control &&
                 e.Key == System.Windows.Input.Key.Z) CurrentSettings.Cancel();
         }
+
+        /// <summary>
+        /// Функция отлова изменения размеров экрана
+        /// </summary>
+        private void WindowSizeChanged(object sender, SizeChangedEventArgs e)
+            => CurrentSettings.MoveDelegate?.Invoke();
     }
 }

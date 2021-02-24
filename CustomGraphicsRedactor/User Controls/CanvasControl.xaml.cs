@@ -114,6 +114,7 @@ namespace CustomGraphicsRedactor.User_Controls
         /// <param name="vector">Вектор движения</param>
         private void ForceMove(CustVector vector)
         {
+            if (CurrentSettings.Mode != ECanvasMode.Hand) return;
             _isMove = true;
             IsSelectedItems.ForEach(c => c.Move(vector));
             CurrentSettings.MoveDelegate.Invoke();

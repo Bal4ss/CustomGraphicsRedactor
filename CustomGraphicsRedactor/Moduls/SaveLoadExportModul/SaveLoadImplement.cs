@@ -33,7 +33,6 @@ namespace CustomGraphicsRedactor.Moduls
         /// <param name="status">Статус (тип) действия</param>
         public static void SLERoute(ESaveLoadStatus status)
         {
-            CurrentSettings.ClearCancel();
             CurrentSettings.SetCurrentItem();
 
             switch (status)
@@ -78,6 +77,8 @@ namespace CustomGraphicsRedactor.Moduls
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
             if (openFileDialog.ShowDialog() == false) return;
+
+            CurrentSettings.ClearCancel();
 
             var xmlParser = new XmlParser(_ctx);
 

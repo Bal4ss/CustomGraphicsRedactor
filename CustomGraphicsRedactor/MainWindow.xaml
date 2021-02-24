@@ -8,23 +8,22 @@
         mc:Ignorable="d"
         KeyDown="WindowKeyDown"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid Style="{StaticResource MainGridStyleKey}"
+          SizeChanged="WindowSizeChanged">
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
+            <RowDefinition Style="{StaticResource ToolBarGridRowStyleKey}"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Style="{StaticResource PropertiesGridColumnStyleKey}"/>
         </Grid.ColumnDefinitions>
         <ucon:ToolBarControl x:Name="ToolBarWrapper"
                              Grid.Row="0"
                              Grid.Column="0"/>
         <ucon:CanvasControl x:Name="MainCanvasWrapper"
                             Grid.Column="0"
-                            Grid.Row="1"
-                            BorderThickness="2"
-                            BorderBrush="Black"/>
+                            Grid.Row="1"/>
         <ucon:PropertiesPanelControl x:Name="PropertiesPanelWrapper"
                                      Grid.Column="1"
                                      Grid.Row="1"/>
