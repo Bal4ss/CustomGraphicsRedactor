@@ -10,14 +10,8 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Border Style="{StaticResource BorderPropertiesStyleKey}"
-                Grid.Column="0"
-                Grid.Row="0">
-            <TextBlock Text="Properties"/>
-        </Border>
         <StackPanel x:Name="PropertiesPanel"
                     Grid.Column="0"
                     Grid.Row="1"/>

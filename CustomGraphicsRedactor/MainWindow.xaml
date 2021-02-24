@@ -24,6 +24,10 @@
         <ucon:CanvasControl x:Name="MainCanvasWrapper"
                             Grid.Column="0"
                             Grid.Row="1"/>
+        <TextBlock Style="{StaticResource TextBlockHeaderStyleKey}"
+                   Text="Properties"
+                   Grid.Column="1"
+                   Grid.Row="0"/>
         <ucon:PropertiesPanelControl x:Name="PropertiesPanelWrapper"
                                      Grid.Column="1"
                                      Grid.Row="1"/>
