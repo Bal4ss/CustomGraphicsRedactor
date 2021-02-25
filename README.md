@@ -78,6 +78,7 @@
 #### Объекты:
 
 ![Скриншот объектов](https://github.com/Bal4ss/CustomGraphicsRedactor/blob/master/Screenshots/002.png)
+![Скриншот объектов](https://github.com/Bal4ss/CustomGraphicsRedactor/blob/master/Screenshots/004.png)
 
 #### Параметры объектов:
 
