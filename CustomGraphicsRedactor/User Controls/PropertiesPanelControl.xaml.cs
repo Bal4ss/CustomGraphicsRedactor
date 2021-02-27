@@ -33,7 +33,12 @@ namespace CustomGraphicsRedactor.User_Controls
         {
             Clear();
 
-            _item = CurrentSettings.GetItem;
+            if (CurrentSettings.GetItem == null) return;
+            else if (CurrentSettings.GetItem is IRectangleItem)
+                _item = (IRectangleItem)CurrentSettings.GetItem;
+            else if (CurrentSettings.GetItem is IPropertiesItem)
+                _item = (IPropertiesItem)CurrentSettings.GetItem;
+
             if (_item == null) return;
 
             var tabControl = new TabControl();
