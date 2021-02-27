@@ -15,8 +15,8 @@ namespace CustomGraphicsRedactor.Moduls
         private static MoveAction _move;
         private static AppendItem _append;
         private static RefreshDel _refresh;
+        private static ICanvasItem _currentItem;
         private static ECanvasMode? _currentMode;
-        private static IPropertiesItem _currentItem;
         private static CancelImplement _cancelImplement;
 
         static CurrentSettings()
@@ -26,6 +26,8 @@ namespace CustomGraphicsRedactor.Moduls
             _cancelImplement = new CancelImplement();
         }
 
+        public static bool IsDraw => _isDraw;
+
         /// <summary>
         /// Возвращает режим взаимодействия с холстом и объектами на нем
         /// </summary>
@@ -34,7 +36,7 @@ namespace CustomGraphicsRedactor.Moduls
         /// <summary>
         /// Возвращает текущий объект для манипуляций
         /// </summary>
-        public static IPropertiesItem GetItem => _currentItem;
+        public static ICanvasItem GetItem => _currentItem;
 
         /// <summary>
         /// Возвращает/задает делегат для взаимодействия методов описания "движения"
@@ -57,7 +59,7 @@ namespace CustomGraphicsRedactor.Moduls
         public static void Remove()
         {
             AppendNewAction(ECancelTypes.Remove, _currentItem);
-            ((ICanvasItem)_currentItem).Remove();
+            _currentItem.Remove();
             _currentItem = null;
             _refresh?.Invoke();
             _move?.Invoke();
@@ -77,15 +79,17 @@ namespace CustomGraphicsRedactor.Moduls
         /// </summary>
         public static void ClearCancel() => _cancelImplement.Clear();
 
+        public static void SetIsDraw(bool isDraw = false) => _isDraw = isDraw;
+
         /// <summary>
         /// Функция изменения текущего объекта для манипуляций
         /// </summary>
         /// <param name="currentItem">Новый объект</param>
-        public static void SetCurrentItem(IPropertiesItem currentItem = null)
+        public static void SetCurrentItem(ICanvasItem currentItem = null)
         {
-            //if (currentItem == null && _currentItem != null)
-            ((ICanvasItem)_currentItem)?.Deselect();
+            _currentItem?.Deselect();
             _currentItem = currentItem;
+            _currentItem?.Select();
             _refresh?.Invoke();
         }
 
@@ -104,7 +108,7 @@ namespace CustomGraphicsRedactor.Moduls
         public static void ChangeMode(ECanvasMode currentMode = ECanvasMode.Hand)
         {
             _currentMode = currentMode;
-            ((ICanvasItem)_currentItem)?.Deselect();
+            _currentItem?.Deselect();
             _currentItem = null;
             _refresh?.Invoke();
         }

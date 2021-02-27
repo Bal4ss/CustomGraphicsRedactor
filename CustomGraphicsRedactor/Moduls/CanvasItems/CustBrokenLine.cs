@@ -30,10 +30,6 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
 
             _points = new List<CustPoint>();
             _points.Add(new CustPoint(point));
-            _points.Add(new CustPoint(new Point(point.X + 50, point.Y + 50)));
-            _points.Add(new CustPoint(new Point(point.X + 100, point.Y)));
-            _points.Add(new CustPoint(new Point(point.X + 150, point.Y + 50)));
-            _points.Add(new CustPoint(new Point(point.X + 200, point.Y)));
         }
 
         /// <summary>

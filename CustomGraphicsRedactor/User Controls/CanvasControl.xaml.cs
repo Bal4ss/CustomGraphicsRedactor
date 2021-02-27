@@ -89,6 +89,8 @@ namespace CustomGraphicsRedactor.User_Controls
         /// <param name="pos">Координаты добавления нового объекта</param>
         private void AddNewItem(Point pos)
         {
+            _items.ForEach(c => c.Deselect());
+
             ICanvasItem _newObject = null;
             switch (CurrentSettings.Mode)
             {
@@ -100,12 +102,17 @@ namespace CustomGraphicsRedactor.User_Controls
                     break;
             }
 
-            if (_newObject == null) return;
+            if (_newObject == null) {
+                CurrentSettings.SetCurrentItem();
+                CurrentSettings.SetIsDraw(false);
+                return;
+            }
 
             AppendNewItem(_newObject);
+            CurrentSettings.SetIsDraw(true);
+            CurrentSettings.SetCurrentItem(_newObject);
 
             CurrentSettings.AppendNewAction(ECancelTypes.Add, _newObject);
-            CurrentSettings.ChangeMode();
         }
 
         /// <summary>
@@ -120,13 +127,33 @@ namespace CustomGraphicsRedactor.User_Controls
             CurrentSettings.MoveDelegate?.Invoke();
         }
 
+        private void AddTmpPoint(CustPoint point)
+        {
+            if (CurrentSettings.GetItem == null) return;
+            else if (CurrentSettings.GetItem is IResizableItem) {
+                var item = (IResizableItem)CurrentSettings.GetItem;
+                item.AddTmpPoint(point);
+            }
+            CurrentSettings.MoveDelegate?.Invoke();
+        }
+
+        private void AddNewPoint(CustPoint point)
+        {
+            if (CurrentSettings.GetItem == null) return;
+            else if (CurrentSettings.GetItem is IResizableItem) {
+                var item = (IResizableItem)CurrentSettings.GetItem;
+                item.AddNewPoint(point);
+            }
+            CurrentSettings.MoveDelegate?.Invoke();
+        }
+
         /// <summary>
         /// Добавление нового объекта
         /// </summary>
         /// <param name="newObject">Объект для добавления</param>
         private void AppendNewItem(ICanvasItem newObject)
         {
-            _items.Add(newObject);
+            newObject.Select();
             MainCanvas.Children.Add((UIElement)newObject);
             CurrentSettings.MoveDelegate?.Invoke();
         }
@@ -156,11 +183,14 @@ namespace CustomGraphicsRedactor.User_Controls
         private void MainCanvasMouseMove(object sender, MouseEventArgs e)
         {
             var pos = e.GetPosition(MainCanvas);
+            var isDraw = CurrentSettings.IsDraw;
             var selectedCount = IsSelectedItems.Count();
             var isMouseDown = e.LeftButton == MouseButtonState.Pressed;
 
             if (isMouseDown && selectedCount > 0)
                 ForceMove(new CustVector(_prevuseMousePosition, pos));
+            else if (isDraw && selectedCount > 0) 
+                AddTmpPoint(new CustPoint(pos));
 
             _prevuseMousePosition = pos;
         }
@@ -170,13 +200,23 @@ namespace CustomGraphicsRedactor.User_Controls
         /// </summary>
         private void MainCanvasMouseDown(object sender, MouseButtonEventArgs e)
         {
-            CurrentSettings.SetCurrentItem();
-
-            _items.ForEach(c => c.Deselect());
             var pos = e.GetPosition(MainCanvas);
+            var isDraw = CurrentSettings.IsDraw;
             var clickResult = VisualTreeHelper.HitTest(MainCanvas, pos);
 
-            if (clickResult.VisualHit is ICanvasItem item &&
+            if (e.ClickCount > 1 &&
+                clickResult.VisualHit is ICanvasItem check) {
+                if (check.IsSelected) {
+                    CurrentSettings.SetIsDraw(!isDraw);
+                    if (isDraw) {
+                        CurrentSettings.SetCurrentItem();
+                        CurrentSettings.ChangeMode();
+                        return;
+                    }
+                }
+            }
+
+            if (!isDraw && clickResult.VisualHit is ICanvasItem item &&
                 CurrentSettings.Mode == ECanvasMode.Hand) {
                 item.Select();
                 _prevuseMousePosition = pos;
@@ -185,8 +225,9 @@ namespace CustomGraphicsRedactor.User_Controls
                 item.GetPoints.ForEach(c =>
                     _oldPosition.Add(new CustPoint(c.Point)));
 
-                CurrentSettings.SetCurrentItem((IPropertiesItem)item);
+                CurrentSettings.SetCurrentItem(item);
             }
+            else if (isDraw) AddNewPoint(new CustPoint(pos));
             else AddNewItem(pos);
         }
     }

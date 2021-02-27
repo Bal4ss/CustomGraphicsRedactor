@@ -23,11 +23,11 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
         /// <param name="point">Стартовое положение объекта</param>
         public CustRectangle(Point point)
         {
-            _width = 200;
-            _height = 100;
+            _width = 5;
+            _height = 5;
             _isSelected = false;
             _strokeThickness = 1;
-            _fillColor = Brushes.White;
+            _fillColor = Brushes.Green;
             _strokeColor = Brushes.Black;
             _points = new List<CustPoint>(1);
             _points.Add(new CustPoint(point));
