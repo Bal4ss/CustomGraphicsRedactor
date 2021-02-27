@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
 using System.Windows.Controls;
 using System.Collections.Generic;
@@ -10,25 +9,24 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
     /// <summary>
     /// Логика поведения объекта "Прямоугольник с заливкой"
     /// </summary>
-    class CustRectangle : UIElement, ICanvasItem, IResizableItem, IRectangleItem
+    class CustRectangle : UIElement, ICanvasItem, IRectangleItem
     {
         private double _width;
         private double _height;
         private bool _isSelected;
         private Brush _fillColor;
         private Brush _strokeColor;
-        private CustPoint _tmpPoint;
         private double _strokeThickness;
         private List<CustPoint> _points;
 
         /// <param name="point">Стартовое положение объекта</param>
         public CustRectangle(Point point)
         {
-            _width = 1;
-            _height = 1;
+            _width = 200;
+            _height = 100;
             _isSelected = false;
             _strokeThickness = 1;
-            _fillColor = Brushes.Green;
+            _fillColor = Brushes.White;
             _strokeColor = Brushes.Black;
             _points = new List<CustPoint>(1);
             _points.Add(new CustPoint(point));
@@ -75,11 +73,6 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
         public void Select()
         {
             _isSelected = true;
-            var _canvas = (Canvas)VisualParent;
-            if (_canvas != null) {
-                _canvas.Children.Remove(this);
-                _canvas.Children.Add(this);
-            }
             InvalidateVisual();
         }
 
@@ -94,40 +87,7 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
         /// </summary>
         public void Deselect()
         {
-            _tmpPoint = null;
             _isSelected = false;
-            InvalidateVisual();
-        }
-
-        public void AddTmpPoint(CustPoint point = null)
-        {
-            _tmpPoint = point;
-            InvalidateVisual();
-        }
-
-        public void AddNewPoint(CustPoint point)
-        {
-            if (_tmpPoint != null) {
-                if (_tmpPoint.Point.X > _points[0].Point.X)
-                    _width = _tmpPoint.Point.X - _points[0].Point.X;
-                else {
-                    _width = _points[0].Point.X - _tmpPoint.Point.X;
-                    _points[0].ChangePoint(new Point(
-                        _tmpPoint.Point.X,
-                        _points[0].Point.Y));
-                }
-
-                if (_tmpPoint.Point.Y > _points[0].Point.Y)
-                    _height = _tmpPoint.Point.Y - _points[0].Point.Y;
-                else {
-                    _height = _points[0].Point.Y - _tmpPoint.Point.Y;
-                    _points[0].ChangePoint(new Point(
-                        _points[0].Point.X,
-                        _tmpPoint.Point.Y));
-                }
-            }
-
-            _tmpPoint = null;
             InvalidateVisual();
         }
 
@@ -209,37 +169,16 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
         /// <param name="drawingContext">Контекст "отрисовки"</param>
         protected override void OnRender(DrawingContext drawingContext)
         {
-            var width = _width;
-            var height = _height;
-            var pointX = _points[0].Point.X;
-            var pointY = _points[0].Point.Y;
-
-            if (_tmpPoint != null) {
-                if (_tmpPoint.Point.X > _points[0].Point.X)
-                    width = _tmpPoint.Point.X - _points[0].Point.X;
-                else {
-                    width = _points[0].Point.X - _tmpPoint.Point.X;
-                    pointX = _tmpPoint.Point.X;
-                }
-
-                if (_tmpPoint.Point.Y > _points[0].Point.Y)
-                    height = _tmpPoint.Point.Y - _points[0].Point.Y;
-                else {
-                    height = _points[0].Point.Y - _tmpPoint.Point.Y;
-                    pointY = _tmpPoint.Point.Y;
-                }
-            }
-
             var _drawingGroup = new DrawingGroup();
             var rectGeom1 =
                 new GeometryDrawing(
                     _fillColor,
                     new Pen(_strokeColor, _strokeThickness),
                     new RectangleGeometry(new Rect(
-                        pointX,
-                        pointY,
-                        width,
-                        height)
+                        _points[0].Point.X,
+                        _points[0].Point.Y,
+                        _width,
+                        _height)
                     )
                 );
 
@@ -258,10 +197,10 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
                     selectedColor,
                     new Pen(selectedColor, _strokeThickness),
                     new RectangleGeometry(new Rect(
-                        pointX - 3,
-                        pointY - 3,
-                        width + 6,
-                        height + 6)
+                        _points[0].Point.X - 3,
+                        _points[0].Point.Y - 3,
+                        _width + 6,
+                        _height + 6)
                     )
                 );
 
