@@ -68,6 +68,7 @@
     <Compile Include="Moduls\CanvasItems\CustBrokenLine.cs" />
     <Compile Include="Moduls\CanvasItems\CustRectangle.cs" />
     <Compile Include="Moduls\CurrentSettings.cs" />
+    <Compile Include="Moduls\Interfaces\IResizableItem.cs" />
     <Compile Include="Moduls\PointsModul\CustPoint.cs" />
     <Compile Include="Moduls\PointsModul\CustVector.cs" />
     <Compile Include="Moduls\Enums\ECancelTypes.cs" />

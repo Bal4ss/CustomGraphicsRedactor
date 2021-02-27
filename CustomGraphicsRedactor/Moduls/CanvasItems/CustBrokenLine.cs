@@ -11,11 +11,12 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
     /// <summary>
     /// Логика поведения объекта "Ломаная линия"
     /// </summary>
-    class CustBrokenLine : UIElement, ICanvasItem, IPropertiesItem
+    class CustBrokenLine : UIElement, ICanvasItem, IResizableItem, IPropertiesItem
     {
         private bool _isSelected;
         private Brush _fillColor;
         private Brush _strokeColor;
+        private CustPoint _tmpPoint;
         private double _strokeThickness;
         private List<CustPoint> _points;
 
@@ -66,6 +67,11 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
         public void Select()
         {
             _isSelected = true;
+            var _canvas = (Canvas)VisualParent;
+            if (_canvas != null) {
+                _canvas.Children.Remove(this);
+                _canvas.Children.Add(this);
+            }
             InvalidateVisual();
         }
 
@@ -83,6 +89,19 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
             _isSelected = false;
             for (int i = 0; i < _points.Count(); i++)
                 _points[i].Deselect();
+            InvalidateVisual();
+        }
+
+        public void AddTmpPoint(CustPoint point = null)
+        {
+            _tmpPoint = point;
+            InvalidateVisual();
+        }
+
+        public void AddNewPoint(CustPoint point)
+        {
+            _tmpPoint = null;
+            _points.Add(point);
             InvalidateVisual();
         }
 
@@ -191,45 +210,55 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
         {
             var _drawingGroup = new DrawingGroup();
 
-            for(int i = 1; i < _points.Count(); i++) {
+            var drawPoints = new List<CustPoint>(_points);
+
+            if (_tmpPoint != null) drawPoints.Add(_tmpPoint);
+
+            for (int i = 1; i < drawPoints.Count(); i++)
+            {
                 _drawingGroup.Children.Add(
                     new GeometryDrawing(
                         _fillColor,
                         new Pen(_strokeColor, _strokeThickness),
-                        new LineGeometry(_points[i - 1].Point, _points[i].Point)
+                        new LineGeometry(drawPoints[i - 1].Point, drawPoints[i].Point)
                     ));
             }
-            for (int i = 0; i < _points.Count(); i++)
+
+            for (int i = 0; i < drawPoints.Count(); i++)
             {
                 var ellipseThickness = _strokeThickness / 3;
                 _drawingGroup.Children.Add(
                     new GeometryDrawing(
                         _strokeColor,
                         new Pen(_strokeColor, ellipseThickness),
-                        new EllipseGeometry(_points[i].Point, ellipseThickness, ellipseThickness)
+                        new EllipseGeometry(drawPoints[i].Point, ellipseThickness, ellipseThickness)
                     ));
             }
 
-            if (_isSelected) {
-                var selectedColor = new SolidColorBrush() {
+            if (_isSelected)
+            {
+                var selectedColor = new SolidColorBrush()
+                {
                     Color = Colors.LightGray,
                     Opacity = 0.5
                 };
-                for (int i = 1; i < _points.Count(); i++) {
+                for (int i = 1; i < drawPoints.Count(); i++)
+                {
                     _drawingGroup.Children.Add(
                         new GeometryDrawing(
                             selectedColor,
                             new Pen(selectedColor, _strokeThickness + 7),
-                            new LineGeometry(_points[i - 1].Point, _points[i].Point)
+                            new LineGeometry(drawPoints[i - 1].Point, drawPoints[i].Point)
                         ));
                 }
-                for (int i = 0; i < _points.Count(); i++) {
+                for (int i = 0; i < drawPoints.Count(); i++)
+                {
                     var tmpThickness = (7 + _strokeThickness) / 2;
                     _drawingGroup.Children.Add(
                         new GeometryDrawing(
                             _fillColor,
                             new Pen(_fillColor, 1),
-                            new EllipseGeometry(_points[i].Point, tmpThickness, tmpThickness)
+                            new EllipseGeometry(drawPoints[i].Point, tmpThickness, tmpThickness)
                         ));
                 }
             }
