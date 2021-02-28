@@ -197,7 +197,13 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
         /// <param name="points">Описание положения объекта</param>
         public void SetPoints(List<CustPoint> points)
         {
-            _points = points;
+            _points = new List<CustPoint>();
+            _points.Add(new CustPoint(new Point(
+                points[0].Point.X,
+                points[0].Point.Y)));
+            _points.Add(new CustPoint(new Point(
+                points[1].Point.X,
+                points[1].Point.Y)));
             _tmpPoint = null;
             InvalidateVisual();
         }

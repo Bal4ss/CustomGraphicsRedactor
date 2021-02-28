@@ -141,9 +141,16 @@ namespace CustomGraphicsRedactor.User_Controls
             if (CurrentSettings.GetItem == null) return;
             else if (CurrentSettings.GetItem is IResizableItem item) {
 
+                var tmpPoints = new List<CustPoint>();
+                ((ICanvasItem)item).GetPoints.ForEach(c => {
+                    tmpPoints.Add(new CustPoint(new Point(
+                        c.Point.X,
+                        c.Point.Y)));
+                });
+
                 var tmpCancelObject = new object[] {
                     item,
-                    new List<CustPoint>(((ICanvasItem)item).GetPoints)
+                    tmpPoints
                 };
 
                 item.AddNewPoint(point);
@@ -171,7 +178,7 @@ namespace CustomGraphicsRedactor.User_Controls
         {
             if (_isMove) {
                 var pos = e.GetPosition(MainCanvas);
-                var tmpObject = (ICanvasItem)CurrentSettings.GetItem;
+                var tmpObject = CurrentSettings.GetItem;
 
                 var tmpCancelObject = new object[] {
                     tmpObject,
