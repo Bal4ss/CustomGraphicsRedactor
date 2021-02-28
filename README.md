@@ -76,14 +76,7 @@
 
 <a name="realization"><h1>Реализация</h1></a>  
 > Интерфейс:  
-![Скриншот интерфейса](https://github.com/Bal4ss/CustomGraphicsRedactor/blob/master/Screenshots/001.png)
-
-> Объекты:  
-![Скриншот объектов](https://github.com/Bal4ss/CustomGraphicsRedactor/blob/master/Screenshots/002.png)
-![Скриншот объектов](https://github.com/Bal4ss/CustomGraphicsRedactor/blob/master/Screenshots/004.png)
-
-> Параметры объектов:  
-![Скриншот параметров объектов](https://github.com/Bal4ss/CustomGraphicsRedactor/blob/master/Screenshots/003.png)  
+![Скриншот объектов](https://github.com/Bal4ss/CustomGraphicsRedactor/blob/master/Screenshots/notwarmakelove.png)
 
 > Пример работы:  
 ![Пример работы](https://github.com/Bal4ss/CustomGraphicsRedactor/blob/master/Screenshots/kA72ETWB.gif)  
