@@ -85,6 +85,10 @@
 > Параметры объектов:  
 ![Скриншот параметров объектов](https://github.com/Bal4ss/CustomGraphicsRedactor/blob/master/Screenshots/003.png)  
 
+#### Дополнительный реализованный функционал:
+* ctrl+z - отменить последнее действие
+* delete - удалить выбранный объект
+
 <a name="tools"><h1>Инструменты используемые в ходе работы</h1></a>  
 - MS Visual Studio 2019
 - C#
