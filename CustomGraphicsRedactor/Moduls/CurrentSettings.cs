@@ -11,7 +11,7 @@ namespace CustomGraphicsRedactor.Moduls
         public delegate void MoveAction();
         public delegate void AppendItem(ICanvasItem item);
 
-        private static bool _isDraw;
+        private static bool _isReDraw;
         private static MoveAction _move;
         private static AppendItem _append;
         private static RefreshDel _refresh;
@@ -21,12 +21,15 @@ namespace CustomGraphicsRedactor.Moduls
 
         static CurrentSettings()
         {
-            _isDraw = false;
+            _isReDraw = false;
             _currentItem = null;
             _cancelImplement = new CancelImplement();
         }
 
-        public static bool IsDraw => _isDraw;
+        /// <summary>
+        /// Возвращает состояние режема перерисовки
+        /// </summary>
+        public static bool IsReDraw => _isReDraw;
 
         /// <summary>
         /// Возвращает режим взаимодействия с холстом и объектами на нем
@@ -61,7 +64,7 @@ namespace CustomGraphicsRedactor.Moduls
             AppendNewAction(ECancelTypes.Remove, _currentItem);
             _currentItem.Remove();
             _currentItem = null;
-            _isDraw = false;
+            _isReDraw = false;
             _refresh?.Invoke();
             _move?.Invoke();
         }
@@ -73,7 +76,7 @@ namespace CustomGraphicsRedactor.Moduls
         {
             ChangeMode(ECanvasMode.Hand);
             _currentItem = null;
-            _isDraw = false;
+            _isReDraw = false;
             _cancelImplement.Cancel();
             _refresh?.Invoke();
         }
@@ -83,7 +86,11 @@ namespace CustomGraphicsRedactor.Moduls
         /// </summary>
         public static void ClearCancel() => _cancelImplement.Clear();
 
-        public static void SetIsDraw(bool isDraw = false) => _isDraw = isDraw;
+        /// <summary>
+        /// Функция изменяет состояние режима перерисовки
+        /// </summary>
+        /// <param name="isDraw">Значение состояния</param>
+        public static void SetIsDraw(bool isDraw = false) => _isReDraw = isDraw;
 
         /// <summary>
         /// Функция изменения текущего объекта для манипуляций

@@ -40,9 +40,7 @@ namespace CustomGraphicsRedactor.Moduls
 
                 var xPoints = GetItemPoints(tmpItem);
 
-                var canvasItem = new XElement(
-                    xPoints.Count > 1 ? "CustBrokenLine" :
-                                        "CustRectangle");
+                var canvasItem = new XElement(tmpItem.GetType().Name);
 
                 foreach (var atr in canvasItemAtr)
                     canvasItem.Add(atr);

@@ -118,6 +118,10 @@ namespace CustomGraphicsRedactor.User_Controls
             CurrentSettings.MoveDelegate?.Invoke();
         }
 
+        /// <summary>
+        /// Функция добавления вспомогательной точки отрисовки
+        /// </summary>
+        /// <param name="point">Новая "точка"</param>
         private void AddTmpPoint(CustPoint point)
         {
             if (CurrentSettings.GetItem == null) return;
@@ -128,6 +132,10 @@ namespace CustomGraphicsRedactor.User_Controls
             CurrentSettings.MoveDelegate?.Invoke();
         }
 
+        /// <summary>
+        /// Функция добавления точки отрисовки
+        /// </summary>
+        /// <param name="point">Новая "точка"</param>
         private void AddNewPoint(CustPoint point)
         {
             if (CurrentSettings.GetItem == null) return;
@@ -181,7 +189,7 @@ namespace CustomGraphicsRedactor.User_Controls
         private void MainCanvasMouseMove(object sender, MouseEventArgs e)
         {
             var pos = e.GetPosition(MainCanvas);
-            var isDraw = CurrentSettings.IsDraw;
+            var isDraw = CurrentSettings.IsReDraw;
             var selectedCount = IsSelectedItems.Count();
             var isMouseDown = e.LeftButton == MouseButtonState.Pressed;
 
@@ -199,7 +207,7 @@ namespace CustomGraphicsRedactor.User_Controls
         private void MainCanvasMouseDown(object sender, MouseButtonEventArgs e)
         {
             var pos = e.GetPosition(MainCanvas);
-            var isDraw = CurrentSettings.IsDraw;
+            var isDraw = CurrentSettings.IsReDraw;
             var clickResult = VisualTreeHelper.HitTest(MainCanvas, pos);
 
             if (e.ClickCount > 1 &&

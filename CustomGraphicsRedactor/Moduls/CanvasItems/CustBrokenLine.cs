@@ -88,12 +88,20 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
             InvalidateVisual();
         }
 
+        /// <summary>
+        /// Функция обновления вспомогательной точки отрисовки
+        /// </summary>
+        /// <param name="point">Новая "точка"</param>
         public void AddTmpPoint(CustPoint point = null)
         {
             _tmpPoint = point;
             InvalidateVisual();
         }
 
+        /// <summary>
+        /// Функция обновления точки отрисовки
+        /// </summary>
+        /// <param name="point">Новая "точка"</param>
         public void AddNewPoint(CustPoint point)
         {
             _tmpPoint = null;

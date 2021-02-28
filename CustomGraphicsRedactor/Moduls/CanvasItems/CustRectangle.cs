@@ -11,8 +11,6 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
     /// </summary>
     class CustRectangle : UIElement, ICanvasItem, IResizableItem, IRectangleItem
     {
-        //private double _width;
-        //private double _height;
         private bool _isSelected;
         private Brush _fillColor;
         private Brush _strokeColor;
@@ -23,8 +21,6 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
         /// <param name="point">Стартовое положение объекта</param>
         public CustRectangle(Point point)
         {
-            //_width = 5;
-            //_height = 5;
             _isSelected = false;
             _strokeThickness = 1;
             _fillColor = Brushes.Green;
@@ -99,12 +95,21 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
             _isSelected = false;
             InvalidateVisual();
         }
+
+        /// <summary>
+        /// Функция обновления вспомогательной точки отрисовки
+        /// </summary>
+        /// <param name="point">Новая "точка"</param>
         public void AddTmpPoint(CustPoint point = null)
         {
             _tmpPoint = point;
             InvalidateVisual();
         }
 
+        /// <summary>
+        /// Функция обновления точки отрисовки
+        /// </summary>
+        /// <param name="point">Новая "точка"</param>
         public void AddNewPoint(CustPoint point)
         {
             if (_tmpPoint != null) {
@@ -192,7 +197,7 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
         /// <param name="points">Описание положения объекта</param>
         public void SetPoints(List<CustPoint> points)
         {
-            _points = new List<CustPoint>(points);
+            _points = points;
             _tmpPoint = null;
             InvalidateVisual();
         }
@@ -223,13 +228,14 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
         /// <param name="drawingContext">Контекст "отрисовки"</param>
         protected override void OnRender(DrawingContext drawingContext)
         {
+            if (_points.Count < 2) return;
+
             var width = _points[1].Point.X - _points[0].Point.X;
             var height = _points[1].Point.Y - _points[0].Point.Y;
             var pointX = _points[0].Point.X;
             var pointY = _points[0].Point.Y;
 
-            if (_tmpPoint != null)
-            {
+            if (_tmpPoint != null) {
                 if (_tmpPoint.Point.X > _points[0].Point.X)
                     width = _tmpPoint.Point.X - _points[0].Point.X;
                 else {
@@ -260,8 +266,7 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
 
             _drawingGroup.Children.Add(rectGeom1);
 
-            if (_isSelected)
-            {
+            if (_isSelected) {
                 var selectedColor = new SolidColorBrush()
                 {
                     Color = Colors.LightGray,

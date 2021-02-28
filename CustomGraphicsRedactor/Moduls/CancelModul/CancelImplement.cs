@@ -144,10 +144,12 @@ namespace CustomGraphicsRedactor.Moduls
         private static void CancelThickness(IPropertiesItem obj, double thickness)
             => obj.ChangeThickness(thickness);
 
-
+        /// <summary>
+        /// Функция отмены действия изменения точек отрисовки
+        /// </summary>
+        /// <param name="obj">Объект действия</param>
+        /// <param name="points">Список "точек"</param>
         private static void CancelAddNewPoint(ICanvasItem obj, List<CustPoint> points)
-        {
-            obj.SetPoints(points);
-        }
+            => obj.SetPoints(points);
     }
 }
