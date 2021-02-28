@@ -3,25 +3,13 @@
                     xmlns:local="clr-namespace:CustomGraphicsRedactor"
                     xmlns:ucon="clr-namespace:CustomGraphicsRedactor.User_Controls"
                     xmlns:custBtn="clr-namespace:CustomGraphicsRedactor.User_Controls.Template">
-   
+
     <!--#region Grid-->
 
     <Style x:Key="MainGridStyleKey" 
            TargetType="{x:Type Grid}">
         <Setter Property="Background"
                 Value="{StaticResource MaterialDesignToolBarBackground}"/>
-    </Style>
-
-    <Style x:Key="ToolBarGridRowStyleKey"
-           TargetType="{x:Type RowDefinition}">
-        <Setter Property="Height"
-                Value="35"/>
-    </Style>
-
-    <Style x:Key="PropertiesGridColumnStyleKey"
-           TargetType="{x:Type ColumnDefinition}">
-        <Setter Property="Width"
-                Value="200"/>
     </Style>
 
     <!--#endregion-->
@@ -33,17 +21,12 @@
                 Value="Transparent"/>
     </Style>
 
-    <Style TargetType="{x:Type Canvas}">
-        <Setter Property="Background"
-                Value="White"/>
-    </Style>
-
     <!--#endregion-->
     
     <!--#region Button-->
 
     <Style TargetType="Button"
-           BasedOn="{StaticResource {x:Type Button}}">
+           BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
         <Setter Property="Margin"
                 Value="1"/>
     </Style>
@@ -74,6 +57,12 @@
                 Value="Transparent"/>
         <Setter Property="Margin"
                 Value="0,5"/>
+        <Setter Property="Foreground"
+                Value="{StaticResource MaterialDesignTextAreaBorder}"/>
+        <Setter Property="FontSize"
+                Value="14"/>
+        <Setter Property="FontWeight"
+                Value="Medium"/>
     </Style>
     
     <!--#endregion-->
@@ -85,13 +74,21 @@
                 Value="Center"/>
         <Setter Property="VerticalAlignment"
                 Value="Center"/>
+        <Setter Property="Foreground"
+                Value="{StaticResource MaterialDesignTextAreaBorder}"/>
+        <Setter Property="FontSize"
+                Value="14"/>
+        <Setter Property="FontWeight"
+                Value="Medium"/>
     </Style>
 
     <Style x:Key="TextBlockHeaderStyleKey"
            TargetType="{x:Type TextBlock}"
            BasedOn="{StaticResource {x:Type TextBlock}}">
         <Setter Property="FontWeight"
-                Value="Bold"/>
+                Value="Medium"/>
+        <Setter Property="FontSize"
+                Value="16"/>
     </Style>
 
     <!--#endregion-->
@@ -101,6 +98,8 @@
     <Style TargetType="{x:Type TabControl}">
         <Setter Property="BorderThickness"
                 Value="0"/>
+        <Setter Property="Background"
+                Value="#10FFFFFF"/>
     </Style>
     <Style TargetType="{x:Type TabItem}">
         <Setter Property="Template">
@@ -137,6 +136,5 @@
     </Style>
 
     <!--#endregion-->
-    
     
 </ResourceDictionary>

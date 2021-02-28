@@ -63,13 +63,13 @@ namespace CustomGraphicsRedactor.User_Controls
             var grid = new Grid();
             var colDef1 = new ColumnDefinition();
             var colDef2 = new ColumnDefinition();
-            colDef1.Width = new GridLength(60);
+            colDef1.Width = new GridLength(75);
             grid.ColumnDefinitions.Add(colDef1);
             grid.ColumnDefinitions.Add(colDef2);
             var tBlock = new TextBlock()
             {
                 Text = "Width:",
-                HorizontalAlignment = HorizontalAlignment.Right,
+                HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Center,
                 Padding = new Thickness(0, 0, 5, 0)
             };
@@ -91,13 +91,13 @@ namespace CustomGraphicsRedactor.User_Controls
             var grid = new Grid();
             var colDef1 = new ColumnDefinition();
             var colDef2 = new ColumnDefinition();
-            colDef1.Width = new GridLength(60);
+            colDef1.Width = new GridLength(75);
             grid.ColumnDefinitions.Add(colDef1);
             grid.ColumnDefinitions.Add(colDef2);
             var tBlock = new TextBlock()
             {
                 Text = "Height:",
-                HorizontalAlignment = HorizontalAlignment.Right,
+                HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Center,
                 Padding = new Thickness(0, 0, 5, 0)
             };
@@ -119,12 +119,12 @@ namespace CustomGraphicsRedactor.User_Controls
             var grid = new Grid();
             var colDef1 = new ColumnDefinition();
             var colDef2 = new ColumnDefinition();
-            colDef1.Width = new GridLength(60);
+            colDef1.Width = new GridLength(75);
             grid.ColumnDefinitions.Add(colDef1);
             grid.ColumnDefinitions.Add(colDef2);
             var tBlock = new TextBlock() {
                 Text = "Thickness:",
-                HorizontalAlignment = HorizontalAlignment.Right,
+                HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment =VerticalAlignment.Center,
                 Padding = new Thickness(0,0,5,0)
             };

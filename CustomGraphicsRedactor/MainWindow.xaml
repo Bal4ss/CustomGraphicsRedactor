@@ -7,16 +7,20 @@
         xmlns:ucon="clr-namespace:CustomGraphicsRedactor.User_Controls"
         mc:Ignorable="d"
         KeyDown="WindowKeyDown"
-        Title="MainWindow" Height="450" Width="800">
+        MinHeight="500" 
+        MinWidth="826.5" 
+        Height="500" 
+        Width="826.5"
+        Title="Custom Graphics Redactor">
     <Grid Style="{StaticResource MainGridStyleKey}"
           SizeChanged="WindowSizeChanged">
         <Grid.RowDefinitions>
-            <RowDefinition Style="{StaticResource ToolBarGridRowStyleKey}"/>
+            <RowDefinition Height="35"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition Style="{StaticResource PropertiesGridColumnStyleKey}"/>
+            <ColumnDefinition Width="250"/>
         </Grid.ColumnDefinitions>
         <ucon:ToolBarControl x:Name="ToolBarWrapper"
                              Grid.Row="0"
@@ -30,6 +34,7 @@
                    Grid.Row="0"/>
         <ucon:PropertiesPanelControl x:Name="PropertiesPanelWrapper"
                                      Grid.Column="1"
-                                     Grid.Row="1"/>
+                                     Grid.Row="1"
+                                     Margin="10 0"/>
     </Grid>
 </Window>

@@ -42,6 +42,9 @@ namespace CustomGraphicsRedactor.User_Controls
         /// </summary>
         public Brush ValueColor => _color;
 
+        /// <summary>
+        /// Возвращает/задает делегат для взаимодействия методов описания изменения настроек объектов
+        /// </summary>
         public ColorChanged ColorChangedDelegate { get { return _colorChanged; } set { _colorChanged = value; } }
 
         /// <summary>

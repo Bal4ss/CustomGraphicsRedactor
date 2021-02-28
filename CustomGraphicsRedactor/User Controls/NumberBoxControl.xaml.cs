@@ -12,6 +12,7 @@ namespace CustomGraphicsRedactor.User_Controls
         public delegate void TextChanged();
 
         private double _number;
+        private string _titleValue;
         private TextChanged _textChanged;
 
         /// <param name="number">Стартовое число</param>
@@ -19,6 +20,7 @@ namespace CustomGraphicsRedactor.User_Controls
         {
             InitializeComponent();
             _number = number;
+            _titleValue = "Value";
             NumberHolder.Text = _number.ToString();
         }
 
@@ -27,6 +29,9 @@ namespace CustomGraphicsRedactor.User_Controls
         /// </summary>
         public double ValueNumber => _number;
 
+        /// <summary>
+        /// Возвращает/задает делегат для взаимодействия методов описания изменения настроек объектов
+        /// </summary>
         public TextChanged TextChangedDelegate { get { return _textChanged; } set { _textChanged = value; } }
 
         /// <summary>
