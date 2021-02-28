@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 using System.Windows.Controls;
 using CustomGraphicsRedactor.Moduls;
 using CustomGraphicsRedactor.Moduls.Interface;
@@ -44,11 +45,10 @@ namespace CustomGraphicsRedactor.User_Controls
             var tabControl = new TabControl();
             tabControl.Items.Add(CreateFillColorTabItem());
             tabControl.Items.Add(CreateStrokeColorTabItem());
-            tabControl.Items.Add(CreateThicknessTabItem());
-
+            PropertiesPanel.Children.Add(CreateThicknessStackPanel());
             if (_item is IRectangleItem) {
-                tabControl.Items.Add(CreateWidthTabItem());
-                tabControl.Items.Add(CreateHeightTabItem());
+                PropertiesPanel.Children.Add(CreateWidthStackPanel());
+                PropertiesPanel.Children.Add(CreateHeightStackPanel());
             }
 
             PropertiesPanel.Children.Add(tabControl);
@@ -58,57 +58,83 @@ namespace CustomGraphicsRedactor.User_Controls
         /// Функция создания вкладки со свойством изменения ширины объекта
         /// </summary>
         /// <returns>Вкладка</returns>
-        private TabItem CreateWidthTabItem()
+        private Grid CreateWidthStackPanel()
         {
-            var fillTabItem = new TabItem();
-            fillTabItem.Header = new TextBlock() { Text = "Width" };
-            var propFillPanel = new StackPanel();
+            var grid = new Grid();
+            var colDef1 = new ColumnDefinition();
+            var colDef2 = new ColumnDefinition();
+            colDef1.Width = new GridLength(60);
+            grid.ColumnDefinitions.Add(colDef1);
+            grid.ColumnDefinitions.Add(colDef2);
+            var tBlock = new TextBlock()
+            {
+                Text = "Width:",
+                HorizontalAlignment = HorizontalAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Center,
+                Padding = new Thickness(0, 0, 5, 0)
+            };
+            grid.Children.Add(tBlock);
             _numberWidthBox = new NumberBoxControl(((IRectangleItem)_item).Width);
-            var buttonFillColor = new Button();
-            buttonFillColor.Content = "Set Width";
-            buttonFillColor.Click += new RoutedEventHandler(SetWidth);
-            propFillPanel.Children.Add(_numberWidthBox);
-            propFillPanel.Children.Add(buttonFillColor);
-            fillTabItem.Content = propFillPanel;
-            return fillTabItem;
+            _numberWidthBox.TextChangedDelegate += SetWidth;
+            grid.Children.Add(_numberWidthBox);
+            Grid.SetColumn(tBlock, 0);
+            Grid.SetColumn(_numberWidthBox, 1);
+            return grid;
         }
 
         /// <summary>
         /// Функция создания вкладки со свойством изменения высоты объекта
         /// </summary>
         /// <returns>Вкладка</returns>
-        private TabItem CreateHeightTabItem()
+        private Grid CreateHeightStackPanel()
         {
-            var fillTabItem = new TabItem();
-            fillTabItem.Header = new TextBlock() { Text = "Height" };
-            var propFillPanel = new StackPanel();
+            var grid = new Grid();
+            var colDef1 = new ColumnDefinition();
+            var colDef2 = new ColumnDefinition();
+            colDef1.Width = new GridLength(60);
+            grid.ColumnDefinitions.Add(colDef1);
+            grid.ColumnDefinitions.Add(colDef2);
+            var tBlock = new TextBlock()
+            {
+                Text = "Height:",
+                HorizontalAlignment = HorizontalAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Center,
+                Padding = new Thickness(0, 0, 5, 0)
+            };
+            grid.Children.Add(tBlock);
             _numberHeightBox = new NumberBoxControl(((IRectangleItem)_item).Height);
-            var buttonFillColor = new Button();
-            buttonFillColor.Content = "Set Height";
-            buttonFillColor.Click += new RoutedEventHandler(SetHeight);
-            propFillPanel.Children.Add(_numberHeightBox);
-            propFillPanel.Children.Add(buttonFillColor);
-            fillTabItem.Content = propFillPanel;
-            return fillTabItem;
+            _numberHeightBox.TextChangedDelegate += SetHeight;
+            grid.Children.Add(_numberHeightBox);
+            Grid.SetColumn(tBlock, 0);
+            Grid.SetColumn(_numberHeightBox, 1);
+            return grid;
         }
 
         /// <summary>
         /// Функция создания вкладки со свойством изменения толщины линий
         /// </summary>
         /// <returns>Вкладка</returns>
-        private TabItem CreateThicknessTabItem()
+        private Grid CreateThicknessStackPanel()
         {
-            var fillTabItem = new TabItem();
-            fillTabItem.Header = new TextBlock() { Text = "Stroke Thickness" };
-            var propFillPanel = new StackPanel();
+            var grid = new Grid();
+            var colDef1 = new ColumnDefinition();
+            var colDef2 = new ColumnDefinition();
+            colDef1.Width = new GridLength(60);
+            grid.ColumnDefinitions.Add(colDef1);
+            grid.ColumnDefinitions.Add(colDef2);
+            var tBlock = new TextBlock() {
+                Text = "Thickness:",
+                HorizontalAlignment = HorizontalAlignment.Right,
+                VerticalAlignment =VerticalAlignment.Center,
+                Padding = new Thickness(0,0,5,0)
+            };
+            grid.Children.Add(tBlock);
             _numberThickBox = new NumberBoxControl(_item.Thickness);
-            var buttonFillColor = new Button();
-            buttonFillColor.Content = "Set Thickness";
-            buttonFillColor.Click += new RoutedEventHandler(SetThickness);
-            propFillPanel.Children.Add(_numberThickBox);
-            propFillPanel.Children.Add(buttonFillColor);
-            fillTabItem.Content = propFillPanel;
-            return fillTabItem;
+            _numberThickBox.TextChangedDelegate += SetThickness;
+            grid.Children.Add(_numberThickBox);
+            Grid.SetColumn(tBlock, 0);
+            Grid.SetColumn(_numberThickBox, 1);
+            return grid;
         }
 
         /// <summary>
@@ -121,11 +147,8 @@ namespace CustomGraphicsRedactor.User_Controls
             fillTabItem.Header = new TextBlock() { Text = "Fill Color" };
             var propFillPanel = new StackPanel();
             _fillColorPicker = new ColorPickerControl(_item.FillColor);
-            var buttonFillColor = new Button();
-            buttonFillColor.Content = "Set Color";
-            buttonFillColor.Click += new RoutedEventHandler(SetFillColor);
+            _fillColorPicker.ColorChangedDelegate += SetFillColor;
             propFillPanel.Children.Add(_fillColorPicker);
-            propFillPanel.Children.Add(buttonFillColor);
             fillTabItem.Content = propFillPanel;
             return fillTabItem;
         }
@@ -140,11 +163,8 @@ namespace CustomGraphicsRedactor.User_Controls
             fillTabItem.Header = new TextBlock() { Text = "Stroke Color" };
             var propFillPanel = new StackPanel();
             _strokeColorPicker = new ColorPickerControl(_item.StrokeColor);
-            var buttonFillColor = new Button();
-            buttonFillColor.Content = "Set Color";
-            buttonFillColor.Click += new RoutedEventHandler(SetStrokeColor);
+            _strokeColorPicker.ColorChangedDelegate += SetStrokeColor;
             propFillPanel.Children.Add(_strokeColorPicker);
-            propFillPanel.Children.Add(buttonFillColor);
             fillTabItem.Content = propFillPanel;
             return fillTabItem;
         }
@@ -152,7 +172,7 @@ namespace CustomGraphicsRedactor.User_Controls
         /// <summary>
         /// Действие изменения ширины объекта
         /// </summary>
-        private void SetWidth(object sender, RoutedEventArgs e)
+        private void SetWidth()
         {
             CurrentSettings.AppendNewAction(ECancelTypes.Width, 
                 new object[] {
@@ -167,7 +187,7 @@ namespace CustomGraphicsRedactor.User_Controls
         /// <summary>
         /// Действие изменения высоты объекта
         /// </summary>
-        private void SetHeight(object sender, RoutedEventArgs e)
+        private void SetHeight()
         {
             CurrentSettings.AppendNewAction(ECancelTypes.Height,
                 new object[] {
@@ -182,7 +202,7 @@ namespace CustomGraphicsRedactor.User_Controls
         /// <summary>
         /// Действие изменения толщины линий
         /// </summary>
-        private void SetThickness(object sender, RoutedEventArgs e)
+        private void SetThickness()
         {
             CurrentSettings.AppendNewAction(ECancelTypes.Thickness,
                 new object[] {
@@ -196,7 +216,7 @@ namespace CustomGraphicsRedactor.User_Controls
         /// <summary>
         /// Действие изменения цвета заливки объекта
         /// </summary>
-        private void SetFillColor(object sender, RoutedEventArgs e)
+        private void SetFillColor()
         {
             CurrentSettings.AppendNewAction(ECancelTypes.FillColor,
                 new object[] {
@@ -210,7 +230,7 @@ namespace CustomGraphicsRedactor.User_Controls
         /// <summary>
         /// Действие изменения цвета линий
         /// </summary>
-        private void SetStrokeColor(object sender, RoutedEventArgs e)
+        private void SetStrokeColor()
         {
             CurrentSettings.AppendNewAction(ECancelTypes.StrokeColor,
                 new object[] {

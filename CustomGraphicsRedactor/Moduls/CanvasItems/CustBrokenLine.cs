@@ -25,7 +25,7 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
         {
             _isSelected = false;
             _strokeThickness = 2;
-            _fillColor = Brushes.Orange;
+            _fillColor = Brushes.Red;
             _strokeColor = Brushes.Black;
 
             _points = new List<CustPoint>();
@@ -214,8 +214,29 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
             {
                 _drawingGroup.Children.Add(
                     new GeometryDrawing(
+                        _strokeColor,
+                        new Pen(_strokeColor, _strokeThickness + 5),
+                        new LineGeometry(drawPoints[i - 1].Point, drawPoints[i].Point)
+                    ));
+            }
+
+            for (int i = 0; i < drawPoints.Count(); i++)
+            {
+                var ellipseThickness = (_strokeThickness + 5 ) / 3;
+                _drawingGroup.Children.Add(
+                    new GeometryDrawing(
+                        _strokeColor,
+                        new Pen(_strokeColor, ellipseThickness),
+                        new EllipseGeometry(drawPoints[i].Point, ellipseThickness, ellipseThickness)
+                    ));
+            }
+
+            for (int i = 1; i < drawPoints.Count(); i++)
+            {
+                _drawingGroup.Children.Add(
+                    new GeometryDrawing(
                         _fillColor,
-                        new Pen(_strokeColor, _strokeThickness),
+                        new Pen(_fillColor, _strokeThickness),
                         new LineGeometry(drawPoints[i - 1].Point, drawPoints[i].Point)
                     ));
             }
@@ -225,8 +246,8 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
                 var ellipseThickness = _strokeThickness / 3;
                 _drawingGroup.Children.Add(
                     new GeometryDrawing(
-                        _strokeColor,
-                        new Pen(_strokeColor, ellipseThickness),
+                        _fillColor,
+                        new Pen(_fillColor, ellipseThickness),
                         new EllipseGeometry(drawPoints[i].Point, ellipseThickness, ellipseThickness)
                     ));
             }
@@ -243,17 +264,17 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
                     _drawingGroup.Children.Add(
                         new GeometryDrawing(
                             selectedColor,
-                            new Pen(selectedColor, _strokeThickness + 7),
+                            new Pen(selectedColor, _strokeThickness + 12),
                             new LineGeometry(drawPoints[i - 1].Point, drawPoints[i].Point)
                         ));
                 }
                 for (int i = 0; i < drawPoints.Count(); i++)
                 {
-                    var tmpThickness = (7 + _strokeThickness) / 2;
+                    var tmpThickness = (12 + _strokeThickness) / 2;
                     _drawingGroup.Children.Add(
                         new GeometryDrawing(
-                            _fillColor,
-                            new Pen(_fillColor, 1),
+                            Brushes.Orange,
+                            new Pen(Brushes.Orange, 1),
                             new EllipseGeometry(drawPoints[i].Point, tmpThickness, tmpThickness)
                         ));
                 }

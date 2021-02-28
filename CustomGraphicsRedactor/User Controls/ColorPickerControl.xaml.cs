@@ -11,8 +11,11 @@ namespace CustomGraphicsRedactor.User_Controls
     /// </summary>
     public partial class ColorPickerControl : UserControl
     {
+        public delegate void ColorChanged();
+
         private Brush _color;
-        
+        private ColorChanged _colorChanged;
+
         /// <param name="color">"Кисть" со стартовым цветом</param>
         public ColorPickerControl(Brush color)
         {
@@ -30,13 +33,16 @@ namespace CustomGraphicsRedactor.User_Controls
             GSlider.Value = _new.G;
             BSlider.Value = _new.B;
 
-            Refresh();
+            _colorChanged += Refresh;
+            _colorChanged?.Invoke();
         }
 
         /// <summary>
         /// Возвращает текущий цвет 
         /// </summary>
         public Brush ValueColor => _color;
+
+        public ColorChanged ColorChangedDelegate { get { return _colorChanged; } set { _colorChanged = value; } }
 
         /// <summary>
         /// Функция обновления состояния контроллера
@@ -56,7 +62,7 @@ namespace CustomGraphicsRedactor.User_Controls
                 Color.FromRgb((byte)rValue, (byte)gValue, (byte)bValue));
 
             RGBValueText.Text = $"R:{rValue} G:{gValue} B:{bValue}";
-            Refresh();
+            _colorChanged?.Invoke();
         }
     }
 }

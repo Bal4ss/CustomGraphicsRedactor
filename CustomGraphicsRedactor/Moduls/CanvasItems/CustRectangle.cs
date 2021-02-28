@@ -218,16 +218,14 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
             {
                 if (_tmpPoint.Point.X > _points[0].Point.X)
                     width = _tmpPoint.Point.X - _points[0].Point.X;
-                else
-                {
+                else {
                     width = _points[0].Point.X - _tmpPoint.Point.X;
                     pointX = _tmpPoint.Point.X;
                 }
 
                 if (_tmpPoint.Point.Y > _points[0].Point.Y)
                     height = _tmpPoint.Point.Y - _points[0].Point.Y;
-                else
-                {
+                else {
                     height = _points[0].Point.Y - _tmpPoint.Point.Y;
                     pointY = _tmpPoint.Point.Y;
                 }
