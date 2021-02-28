@@ -85,6 +85,9 @@
 > Параметры объектов:  
 ![Скриншот параметров объектов](https://github.com/Bal4ss/CustomGraphicsRedactor/blob/master/Screenshots/003.png)  
 
+> Пример работы:  
+![Пример работы](https://github.com/Bal4ss/CustomGraphicsRedactor/blob/master/Screenshots/kA72ETWB.gif)  
+
 #### Клавиатурные сочетания в программе:
 * ctrl+z - отменить последнее действие
 * delete - удалить выбранный объект
