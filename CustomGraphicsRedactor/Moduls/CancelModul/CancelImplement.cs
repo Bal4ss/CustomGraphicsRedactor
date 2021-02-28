@@ -1,7 +1,6 @@
 ﻿using System.Windows.Media;
 using System.Collections.Generic;
 using CustomGraphicsRedactor.Moduls.Interface;
-using CustomGraphicsRedactor.Moduls.CanvasItems;
 
 namespace CustomGraphicsRedactor.Moduls
 {
