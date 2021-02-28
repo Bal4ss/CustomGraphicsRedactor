@@ -11,8 +11,8 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
     /// </summary>
     class CustRectangle : UIElement, ICanvasItem, IResizableItem, IRectangleItem
     {
-        private double _width;
-        private double _height;
+        //private double _width;
+        //private double _height;
         private bool _isSelected;
         private Brush _fillColor;
         private Brush _strokeColor;
@@ -23,25 +23,28 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
         /// <param name="point">Стартовое положение объекта</param>
         public CustRectangle(Point point)
         {
-            _width = 5;
-            _height = 5;
+            //_width = 5;
+            //_height = 5;
             _isSelected = false;
             _strokeThickness = 1;
             _fillColor = Brushes.Green;
             _strokeColor = Brushes.Black;
-            _points = new List<CustPoint>(1);
+            _points = new List<CustPoint>(2);
             _points.Add(new CustPoint(point));
+            _points.Add(new CustPoint(new Point(
+                point.X + 5,
+                point.Y + 5)));
         }
 
         /// <summary>
         /// Возвращает ширину объекта
         /// </summary>
-        public double Width => _width;
+        public double Width => _points[1].Point.X - _points[0].Point.X;
 
         /// <summary>
         /// Возвращает высоту объекта
         /// </summary>
-        public double Height => _height;
+        public double Height => _points[1].Point.Y - _points[0].Point.Y;
 
         /// <summary>
         /// Возвращает "Кисть" с цветом заполнения объекта
@@ -104,23 +107,28 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
 
         public void AddNewPoint(CustPoint point)
         {
-            if (_tmpPoint != null)
-            {
+            if (_tmpPoint != null) {
                 if (_tmpPoint.Point.X > _points[0].Point.X)
-                    _width = _tmpPoint.Point.X - _points[0].Point.X;
-                else
-                {
-                    _width = _points[0].Point.X - _tmpPoint.Point.X;
+                    _points[1].ChangePoint(new Point(
+                        _tmpPoint.Point.X,
+                        _points[1].Point.Y));
+                else {
+                    _points[1].ChangePoint(new Point(
+                        _points[0].Point.X,
+                        _points[1].Point.Y));
                     _points[0].ChangePoint(new Point(
                         _tmpPoint.Point.X,
                         _points[0].Point.Y));
                 }
 
                 if (_tmpPoint.Point.Y > _points[0].Point.Y)
-                    _height = _tmpPoint.Point.Y - _points[0].Point.Y;
-                else
-                {
-                    _height = _points[0].Point.Y - _tmpPoint.Point.Y;
+                    _points[1].ChangePoint(new Point(
+                        _points[1].Point.X,
+                        _tmpPoint.Point.Y));
+                else {
+                    _points[1].ChangePoint(new Point(
+                        _points[1].Point.X,
+                        _points[0].Point.Y));
                     _points[0].ChangePoint(new Point(
                         _points[0].Point.X,
                         _tmpPoint.Point.Y));
@@ -137,9 +145,10 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
         /// <param name="vector">Вектор движения</param>
         public void Move(CustVector vector)
         {
-            _points[0].ChangePoint(new Point(
-                _points[0].Point.X - vector.Delta.X,
-                _points[0].Point.Y - vector.Delta.Y));
+            for(int i = 0; i < 2; i++)
+                _points[i].ChangePoint(new Point(
+                    _points[i].Point.X - vector.Delta.X,
+                    _points[i].Point.Y - vector.Delta.Y));
             InvalidateVisual();
         }
 
@@ -149,7 +158,9 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
         /// <param name="width">Значение ширины</param>
         public void ChangeWidth(double width)
         {
-            _width = width;
+            _points[1].ChangePoint(new Point(
+                _points[0].Point.X + width,
+                _points[1].Point.Y));
             InvalidateVisual();
         }
 
@@ -159,7 +170,9 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
         /// <param name="height"></param>
         public void ChangeHeight(double height)
         {
-            _height = height;
+            _points[1].ChangePoint(new Point(
+                _points[1].Point.X,
+                _points[0].Point.Y + height));
             InvalidateVisual();
         }
 
@@ -179,7 +192,8 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
         /// <param name="points">Описание положения объекта</param>
         public void SetPoints(List<CustPoint> points)
         {
-            _points = points;
+            _points = new List<CustPoint>(points);
+            _tmpPoint = null;
             InvalidateVisual();
         }
 
@@ -209,8 +223,8 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
         /// <param name="drawingContext">Контекст "отрисовки"</param>
         protected override void OnRender(DrawingContext drawingContext)
         {
-            var width = _width;
-            var height = _height;
+            var width = _points[1].Point.X - _points[0].Point.X;
+            var height = _points[1].Point.Y - _points[0].Point.Y;
             var pointX = _points[0].Point.X;
             var pointY = _points[0].Point.Y;
 

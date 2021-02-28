@@ -61,6 +61,7 @@ namespace CustomGraphicsRedactor.Moduls
             AppendNewAction(ECancelTypes.Remove, _currentItem);
             _currentItem.Remove();
             _currentItem = null;
+            _isDraw = false;
             _refresh?.Invoke();
             _move?.Invoke();
         }
@@ -70,6 +71,9 @@ namespace CustomGraphicsRedactor.Moduls
         /// </summary>
         public static void Cancel()
         {
+            ChangeMode(ECanvasMode.Hand);
+            _currentItem = null;
+            _isDraw = false;
             _cancelImplement.Cancel();
             _refresh?.Invoke();
         }

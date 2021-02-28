@@ -12,6 +12,7 @@
         Remove,
         Thickness,
         FillColor,
-        StrokeColor
+        StrokeColor,
+        AddNewPoint
     }
 }

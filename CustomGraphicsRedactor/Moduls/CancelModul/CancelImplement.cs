@@ -1,6 +1,7 @@
 ﻿using System.Windows.Media;
 using System.Collections.Generic;
 using CustomGraphicsRedactor.Moduls.Interface;
+using CustomGraphicsRedactor.Moduls.CanvasItems;
 
 namespace CustomGraphicsRedactor.Moduls
 {
@@ -64,6 +65,10 @@ namespace CustomGraphicsRedactor.Moduls
                     break;
                 case ECancelTypes.StrokeColor:
                     CancelStrokeColor((IPropertiesItem)tmp[0], (Brush)tmp[1]);
+                    break;
+                case ECancelTypes.AddNewPoint:
+                    CancelAddNewPoint((ICanvasItem)tmp[0], (List<CustPoint>)tmp[1]);
+                    CurrentSettings.MoveDelegate?.Invoke();
                     break;
             }
 
@@ -138,5 +143,11 @@ namespace CustomGraphicsRedactor.Moduls
         /// <param name="thickness">Значение толщины</param>
         private static void CancelThickness(IPropertiesItem obj, double thickness)
             => obj.ChangeThickness(thickness);
+
+
+        private static void CancelAddNewPoint(ICanvasItem obj, List<CustPoint> points)
+        {
+            obj.SetPoints(points);
+        }
     }
 }

@@ -118,6 +118,7 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
         public void SetPoints(List<CustPoint> points)
         {
             _points = points;
+            _tmpPoint = null;
             InvalidateVisual();
         }
 

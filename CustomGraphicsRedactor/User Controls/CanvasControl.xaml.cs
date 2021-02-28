@@ -54,17 +54,8 @@ namespace CustomGraphicsRedactor.User_Controls
                     if (b.Point.X < 0 && b.Point.X < left) left = b.Point.X;
                     if (b.Point.Y < 0 && b.Point.Y < top) top = b.Point.Y;
 
-                    if (c is IRectangleItem rci) {
-                        var _tmpRight = b.Point.X + rci.Width;
-                        var _tmpBottom = b.Point.Y + rci.Height;
-
-                        if (_tmpRight > right) right = _tmpRight;
-                        if (_tmpBottom > bottom) bottom = _tmpBottom;
-                    }
-                    else {
-                        if (b.Point.X > right) right = b.Point.X;
-                        if (b.Point.Y > bottom) bottom = b.Point.Y;
-                    }
+                    if (b.Point.X > right) right = b.Point.X;
+                    if (b.Point.Y > bottom) bottom = b.Point.Y;
                 });
             });
 
@@ -140,9 +131,16 @@ namespace CustomGraphicsRedactor.User_Controls
         private void AddNewPoint(CustPoint point)
         {
             if (CurrentSettings.GetItem == null) return;
-            else if (CurrentSettings.GetItem is IResizableItem) {
-                var item = (IResizableItem)CurrentSettings.GetItem;
+            else if (CurrentSettings.GetItem is IResizableItem item) {
+
+                var tmpCancelObject = new object[] {
+                    item,
+                    new List<CustPoint>(((ICanvasItem)item).GetPoints)
+                };
+
                 item.AddNewPoint(point);
+
+                CurrentSettings.AppendNewAction(ECancelTypes.Move, tmpCancelObject);
             }
             CurrentSettings.MoveDelegate?.Invoke();
         }
