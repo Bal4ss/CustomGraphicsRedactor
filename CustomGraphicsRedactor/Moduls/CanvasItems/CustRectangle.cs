@@ -292,6 +292,22 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
                 );
 
                 _drawingGroup.Children.Add(rectGeom2);
+
+                if (_tmpPoint != null) {
+                    var rectGeom3 =
+                    new GeometryDrawing(
+                        new SolidColorBrush(Color.FromArgb(0,0,0,0)),
+                        new Pen(Brushes.Black, 2),
+                        new RectangleGeometry(new Rect(
+                            _points[0].Point.X,
+                            _points[0].Point.Y,
+                            _points[1].Point.X - _points[0].Point.X,
+                            _points[1].Point.Y - _points[0].Point.Y)
+                        )
+                    );
+
+                    _drawingGroup.Children.Add(rectGeom3);
+                }
             }
 
             drawingContext.DrawDrawing(_drawingGroup);
