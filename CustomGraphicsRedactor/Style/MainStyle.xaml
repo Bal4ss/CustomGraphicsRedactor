@@ -40,19 +40,6 @@
 
     <!--#endregion-->
     
-    <!--#region Border -->
-
-
-    <!--<Style x:Key="BorderPropertiesStyleKey"
-           TargetType="{x:Type Border}">
-        <Setter Property="BorderBrush"
-                Value="{StaticResource MaterialDesignSelection}"/>
-        <Setter Property="BorderThickness"
-                Value="0,0,0,2"/>
-    </Style>-->
-    
-    <!--#endregion-->
-
     <!--#region Button-->
 
     <Style TargetType="Button"
@@ -109,14 +96,13 @@
 
     <!--#endregion-->
     
-
     <!--#region TabControl Template-->
 
     <Style TargetType="{x:Type TabControl}">
         <Setter Property="BorderThickness"
                 Value="0"/>
     </Style>
-    <Style TargetType="TabItem">
+    <Style TargetType="{x:Type TabItem}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TabItem">
