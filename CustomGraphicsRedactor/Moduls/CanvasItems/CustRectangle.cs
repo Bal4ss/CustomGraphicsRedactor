@@ -93,6 +93,7 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
         public void Deselect()
         {
             _isSelected = false;
+            _tmpPoint = null;
             InvalidateVisual();
         }
 

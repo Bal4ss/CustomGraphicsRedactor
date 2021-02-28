@@ -85,6 +85,7 @@ namespace CustomGraphicsRedactor.Moduls.CanvasItems
             _isSelected = false;
             for (int i = 0; i < _points.Count(); i++)
                 _points[i].Deselect();
+            _tmpPoint = null;
             InvalidateVisual();
         }
 

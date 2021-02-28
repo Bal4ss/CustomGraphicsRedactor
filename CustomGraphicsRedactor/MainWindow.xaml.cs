@@ -14,12 +14,13 @@ namespace CustomGraphicsRedactor
         }
 
         /// <summary>
-        /// Функция отлова сочетания клавишь Ctrl + Z
+        /// Функция отлова сочетания клавишь Ctrl + Z и Delete
         /// </summary>
         private void WindowKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.KeyboardDevice.Modifiers == System.Windows.Input.ModifierKeys.Control &&
                 e.Key == System.Windows.Input.Key.Z) CurrentSettings.Cancel();
+            else if (e.Key == System.Windows.Input.Key.Delete) CurrentSettings.Remove();
         }
 
         /// <summary>

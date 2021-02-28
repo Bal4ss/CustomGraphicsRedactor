@@ -61,10 +61,13 @@ namespace CustomGraphicsRedactor.Moduls
         /// </summary>
         public static void Remove()
         {
+            if (_currentItem == null) return;
+
             AppendNewAction(ECancelTypes.Remove, _currentItem);
             _currentItem.Remove();
             _currentItem = null;
             _isReDraw = false;
+
             _refresh?.Invoke();
             _move?.Invoke();
         }
@@ -121,6 +124,7 @@ namespace CustomGraphicsRedactor.Moduls
             _currentMode = currentMode;
             _currentItem?.Deselect();
             _currentItem = null;
+            _isReDraw = false;
             _refresh?.Invoke();
         }
     }
